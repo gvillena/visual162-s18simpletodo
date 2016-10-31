@@ -1,16 +1,16 @@
 ﻿Public Class MainForm
 
     Private TaskItems As New Dictionary(Of String, Integer)
+    Private UpdatingList As Boolean = False
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ' Tarea de Prueba
+        Dim testTask = New Task() With {.Id = TaskIO.NextId(), .Titulo = "Tarea de prueba", .Completado = False}
 
-        Dim task1 = New Task() With {.Id = TaskIO.NextId(), .Titulo = "Tarea 1", .Completado = False}
-        Dim task2 = New Task() With {.Id = TaskIO.NextId(), .Titulo = "Tarea 2", .Completado = False}
-        Dim task3 = New Task() With {.Id = TaskIO.NextId(), .Titulo = "Tarea 3", .Completado = False}
-        Dim task4 = New Task() With {.Id = TaskIO.NextId(), .Titulo = "Tarea 4", .Completado = False}
-        Dim task5 = New Task() With {.Id = TaskIO.NextId(), .Titulo = "Tarea 5", .Completado = False}
+        TaskIO.AddTask(testTask)
 
+        ' Tasks Table Layout Panels
         tlpTask1.Visible = False
         tlpTask2.Visible = False
         tlpTask3.Visible = False
@@ -18,9 +18,8 @@
         tlpTask5.Visible = False
         tlpTask6.Visible = False
 
+        ' Actualizar lista de tareas
         UpdateTaskList()
-
-
 
     End Sub
 
@@ -56,12 +55,15 @@
 
     Private Sub UpdateTaskList()
 
+        UpdatingList = True
+
         tlpTask1.Visible = False
         tlpTask2.Visible = False
         tlpTask3.Visible = False
         tlpTask4.Visible = False
         tlpTask5.Visible = False
         tlpTask6.Visible = False
+
         TaskItems.Clear()
 
         For Each t As Task In TaskIO.GetTasks
@@ -108,90 +110,134 @@
 
         Next
 
+        UpdatingList = False
+
     End Sub
 
     Private Sub cbTask1_CheckedChanged(sender As Object, e As EventArgs) Handles cbTask1.CheckedChanged
-        If Not TaskItems.ContainsKey("TaskItem1") Then Exit Sub
-        Dim task = TaskIO.GetTask(TaskItems("TaskItem1"))
+
+        ' Salir en caso se este actualizando la lista
         If cbTask1.Checked Then
             cbTask1.ImageIndex = 0
-            task.Completado = True
+            lblTask1.ForeColor = Color.LightGray
         Else
             cbTask1.ImageIndex = 1
-            task.Completado = False
+            lblTask1.ForeColor = Color.Black
         End If
+
+        ' Salir en caso se este actualizando la lista
+        If UpdatingList Then Exit Sub
+
+        Dim task = TaskIO.GetTask(TaskItems("TaskItem1"))
+        task.Completado = cbTask1.Checked
         TaskIO.UpdateTask(task)
         UpdateTaskList()
+
     End Sub
 
     Private Sub cbTask2_CheckedChanged(sender As Object, e As EventArgs) Handles cbTask2.CheckedChanged
-        If Not TaskItems.ContainsKey("TaskItem2") Then Exit Sub
-        Dim task = TaskIO.GetTask(TaskItems("TaskItem2"))
+
+        ' Salir en caso se este actualizando la lista
         If cbTask2.Checked Then
             cbTask2.ImageIndex = 0
-            task.Completado = True
+            lblTask2.ForeColor = Color.LightGray
         Else
             cbTask2.ImageIndex = 1
-            task.Completado = False
+            lblTask2.ForeColor = Color.Black
         End If
+
+        ' Salir en caso se este actualizando la lista
+        If UpdatingList Then Exit Sub
+
+        Dim task = TaskIO.GetTask(TaskItems("TaskItem2"))
+        task.Completado = cbTask2.Checked
         TaskIO.UpdateTask(task)
         UpdateTaskList()
+
     End Sub
 
     Private Sub cbTask3_CheckedChanged(sender As Object, e As EventArgs) Handles cbTask3.CheckedChanged
-        If Not TaskItems.ContainsKey("TaskItem3") Then Exit Sub
-        Dim task = TaskIO.GetTask(TaskItems("TaskItem3"))
+
+        ' Salir en caso se este actualizando la lista
         If cbTask3.Checked Then
             cbTask3.ImageIndex = 0
-            task.Completado = True
+            lblTask3.ForeColor = Color.LightGray
         Else
             cbTask3.ImageIndex = 1
-            task.Completado = False
+            lblTask3.ForeColor = Color.Black
         End If
+
+        ' Salir en caso se este actualizando la lista
+        If UpdatingList Then Exit Sub
+
+        Dim task = TaskIO.GetTask(TaskItems("TaskItem3"))
+        task.Completado = cbTask3.Checked
         TaskIO.UpdateTask(task)
         UpdateTaskList()
+
     End Sub
 
     Private Sub cbTask4_CheckedChanged(sender As Object, e As EventArgs) Handles cbTask4.CheckedChanged
-        If Not TaskItems.ContainsKey("TaskItem4") Then Exit Sub
-        Dim task = TaskIO.GetTask(TaskItems("TaskItem4"))
+
+        ' Salir en caso se este actualizando la lista
         If cbTask4.Checked Then
             cbTask4.ImageIndex = 0
-            task.Completado = True
+            lblTask4.ForeColor = Color.LightGray
         Else
             cbTask4.ImageIndex = 1
-            task.Completado = False
+            lblTask4.ForeColor = Color.Black
         End If
+
+        ' Salir en caso se este actualizando la lista
+        If UpdatingList Then Exit Sub
+
+        Dim task = TaskIO.GetTask(TaskItems("TaskItem4"))
+        task.Completado = cbTask4.Checked
         TaskIO.UpdateTask(task)
         UpdateTaskList()
+
     End Sub
 
     Private Sub cbTask5_CheckedChanged(sender As Object, e As EventArgs) Handles cbTask5.CheckedChanged
-        If Not TaskItems.ContainsKey("TaskItem5") Then Exit Sub
-        Dim task = TaskIO.GetTask(TaskItems("TaskItem5"))
+
+        ' Salir en caso se este actualizando la lista
         If cbTask5.Checked Then
             cbTask5.ImageIndex = 0
-            task.Completado = True
+            lblTask5.ForeColor = Color.LightGray
         Else
             cbTask5.ImageIndex = 1
-            task.Completado = False
+            lblTask5.ForeColor = Color.Black
         End If
+
+        ' Salir en caso se este actualizando la lista
+        If UpdatingList Then Exit Sub
+
+        Dim task = TaskIO.GetTask(TaskItems("TaskItem5"))
+        task.Completado = cbTask5.Checked
         TaskIO.UpdateTask(task)
         UpdateTaskList()
+
     End Sub
 
     Private Sub cbTask6_CheckedChanged(sender As Object, e As EventArgs) Handles cbTask6.CheckedChanged
-        If Not TaskItems.ContainsKey("TaskItem6") Then Exit Sub
-        Dim task = TaskIO.GetTask(TaskItems("TaskItem6"))
+
+        ' Salir en caso se este actualizando la lista
         If cbTask6.Checked Then
             cbTask6.ImageIndex = 0
-            task.Completado = True
+            lblTask6.ForeColor = Color.LightGray
         Else
             cbTask6.ImageIndex = 1
-            task.Completado = False
+            lblTask6.ForeColor = Color.Black
         End If
+
+        ' Salir en caso se este actualizando la lista
+        If UpdatingList Then Exit Sub
+
+        Dim task = TaskIO.GetTask(TaskItems("TaskItem6"))
+        task.Completado = cbTask6.Checked
         TaskIO.UpdateTask(task)
         UpdateTaskList()
+
     End Sub
 
     Private Sub btnDeleteT1_Click(sender As Object, e As EventArgs) Handles btnDeleteT1.Click
